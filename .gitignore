@@ -8,3 +8,6 @@ dmypy.json
 
 #idea
 .idea/*
+
+#keys
+Config/keys.csv
