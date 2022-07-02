@@ -1,15 +1,14 @@
 import pandas
-from pymongo import MongoClient
 
-from App.Data.exchange_factory import ExchangeFactory
 from App.Services.balance_service import BalanceService
+from App.Services.database_singleton_service import DatabaseSingletonService
 from App.Services.symbol_info_service import SymbolInfoService
 from Models.symbol_info_model import SymbolInfo
 from Utils.utils import fix_floats
 
 
 def update_markets(exchange):
-    client = MongoClient('localhost')
+    client = DatabaseSingletonService.get_instance()
     db = client['BINANCE']
     symbol_info_service = SymbolInfoService(db['SYMBOL_INFO'])
     balance_service = BalanceService(db['BALANCES'])
@@ -41,5 +40,3 @@ def update_markets(exchange):
         if len(temp) != 0:
             for symbol in temp:
                 symbol_info_service.delete_one(symbol)
-
-    exchange = ExchangeFactory().get_instance()

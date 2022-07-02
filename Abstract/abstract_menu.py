@@ -1,5 +1,6 @@
 import abc
 
+
 class AbstractMenu(metaclass=abc.ABCMeta):
 
     @abc.abstractmethod
